@@ -63,9 +63,6 @@ class CVGeneratorAgent(BaseAgent):
         self.output_dir = Path(config.get("output_dir", "./data/outputs"))
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
-        self.template_dir = Path(config.get("template_dir", "./templates/cv_templates"))
-        self.template_dir.mkdir(parents=True, exist_ok=True)
-
     async def generate(
         self,
         cv_data: Dict[str, Any],

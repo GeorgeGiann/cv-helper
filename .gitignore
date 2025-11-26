@@ -97,6 +97,22 @@ outputs/
 *.docx
 *.resume.json
 
+# Data directories (generated/temporary data)
+data/outputs/*
+data/profiles/*
+data/sessions/*
+data/uploads/*
+data/temp/*
+data/embeddings/*
+
+# Keep directory structure
+!data/outputs/.gitkeep
+!data/profiles/.gitkeep
+!data/sessions/.gitkeep
+!data/uploads/.gitkeep
+!data/temp/.gitkeep
+!data/embeddings/.gitkeep
+
 # Test Fixtures (keep structure, ignore actual files)
 tests/fixtures/*.pdf
 tests/fixtures/*.docx

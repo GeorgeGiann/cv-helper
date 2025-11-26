@@ -6,10 +6,38 @@ Collects missing information through conversational interface
 from typing import Dict, Any, Optional, List
 import logging
 import json
+import sys
+import os
 
 from .base_agent import BaseAgent
 
 logger = logging.getLogger(__name__)
+
+
+def is_interactive_environment() -> bool:
+    """
+    Detect if running in an interactive environment
+
+    Returns:
+        True if interactive (terminal), False if non-interactive (Kaggle/cloud)
+    """
+    # Check if running in Jupyter/Colab/Kaggle notebook
+    try:
+        from IPython import get_ipython
+        if get_ipython() is not None:
+            return True  # Jupyter is interactive
+    except ImportError:
+        pass
+
+    # Check if stdin is a terminal
+    if hasattr(sys.stdin, 'isatty') and sys.stdin.isatty():
+        return True
+
+    # Check environment variables
+    if os.getenv('KAGGLE_KERNEL_RUN_TYPE') or os.getenv('CI'):
+        return False
+
+    return False
 
 
 class UserInteractionAgent(BaseAgent):
@@ -35,11 +63,28 @@ class UserInteractionAgent(BaseAgent):
 
         self.conversation_history: List[Dict[str, str]] = []
 
+        # Get interaction mode from config or environment variable
+        # Priority: 1. config parameter, 2. env var, 3. default to non-interactive
+        if config and "interactive_mode" in config:
+            self.interactive_mode = config.get("interactive_mode")
+        else:
+            # Check environment variable (default: non-interactive for safety)
+            env_mode = os.getenv("USER_INTERACTION_MODE", "non-interactive")
+            self.interactive_mode = env_mode
+
+        # Validate mode
+        if self.interactive_mode not in ["interactive", "non-interactive"]:
+            logger.warning(f"[{self.name}] Invalid mode '{self.interactive_mode}', defaulting to non-interactive")
+            self.interactive_mode = "non-interactive"
+
+        logger.info(f"[{self.name}] Running in {self.interactive_mode} mode")
+
     async def collect_info(
         self,
         gaps: List[Dict[str, Any]],
         cv_data: Dict[str, Any],
-        conversation_history: Optional[List[Dict[str, str]]] = None
+        conversation_history: Optional[List[Dict[str, str]]] = None,
+        max_questions: int = 5
     ) -> Dict[str, Any]:
         """
         Collect missing information from user based on gaps
@@ -50,52 +95,51 @@ class UserInteractionAgent(BaseAgent):
             gaps: List of gaps from gap analysis
             cv_data: Current CV data
             conversation_history: Previous conversation messages
+            max_questions: Maximum number of questions to ask (default: 5)
 
         Returns:
             Updated CV data with new information
         """
         try:
             logger.info(f"[{self.name}] Starting information collection for {len(gaps)} gaps")
+            logger.info(f"[{self.name}] Mode: {self.interactive_mode}")
 
             if conversation_history:
                 self.conversation_history = conversation_history
 
-            # For now, we'll simulate the interaction process
-            # In a real implementation, this would be interactive
             updated_cv_data = cv_data.copy()
 
-            # Process each gap and generate/collect responses
-            for gap in gaps:
-                if gap.get("priority") in ["critical", "high"]:
-                    # In a real system, this would prompt the user
-                    # For now, we'll use LLM to suggest potential content
-                    suggestion = await self._suggest_response(gap, cv_data)
+            # Filter and prioritize gaps
+            priority_gaps = sorted(
+                [g for g in gaps if g.get("priority") in ["critical", "high"]],
+                key=lambda x: 0 if x.get("priority") == "critical" else 1
+            )[:max_questions]
 
-                    # Add suggestion to conversation history
-                    self.conversation_history.append({
-                        "role": "assistant",
-                        "content": f"Question: {gap.get('description')}",
-                        "gap_id": gap.get("id")
-                    })
+            if not priority_gaps:
+                logger.info(f"[{self.name}] No high-priority gaps to address")
+                return {
+                    "updated_cv_data": updated_cv_data,
+                    "conversation_history": self.conversation_history,
+                    "gaps_addressed": 0,
+                    "total_gaps": len(gaps)
+                }
 
-                    self.conversation_history.append({
-                        "role": "system",
-                        "content": f"Suggested response: {suggestion}",
-                        "gap_id": gap.get("id")
-                    })
-
-            # Integrate collected information
-            updated_cv_data = await self._integrate_responses(
-                cv_data,
-                gaps,
-                self.conversation_history
-            )
+            # Choose interaction mode
+            if self.interactive_mode == "interactive":
+                updated_cv_data = await self._interactive_collection(
+                    priority_gaps, cv_data
+                )
+            else:
+                updated_cv_data = await self._non_interactive_collection(
+                    priority_gaps, cv_data
+                )
 
             result = {
                 "updated_cv_data": updated_cv_data,
                 "conversation_history": self.conversation_history,
-                "gaps_addressed": len([g for g in gaps if g.get("priority") in ["critical", "high"]]),
-                "total_gaps": len(gaps)
+                "gaps_addressed": len(priority_gaps),
+                "total_gaps": len(gaps),
+                "mode": self.interactive_mode
             }
 
             logger.info(f"[{self.name}] Collected information for {result['gaps_addressed']} gaps")
@@ -105,6 +149,125 @@ class UserInteractionAgent(BaseAgent):
         except Exception as e:
             logger.error(f"[{self.name}] Information collection failed: {e}")
             raise
+
+    async def _interactive_collection(
+        self,
+        gaps: List[Dict[str, Any]],
+        cv_data: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Interactive mode: Ask questions via terminal/Jupyter
+
+        Args:
+            gaps: Priority gaps to address
+            cv_data: Current CV data
+
+        Returns:
+            Updated CV data
+        """
+        updated_cv = cv_data.copy()
+
+        print("\n" + "=" * 70)
+        print("📝 CV Enhancement - Additional Information Needed")
+        print("=" * 70)
+        print("\nI've identified some gaps between your CV and the job requirements.")
+        print("Please answer the following questions to enhance your CV:\n")
+
+        for i, gap in enumerate(gaps, 1):
+            print(f"\n[Question {i}/{len(gaps)}]")
+            print(f"Priority: {gap.get('priority', 'medium').upper()}")
+            print(f"Topic: {gap.get('category', 'general')}")
+            print(f"\n{gap.get('description', 'No description')}")
+
+            # Show suggestion if available
+            suggestion = await self._suggest_response(gap, cv_data)
+            if suggestion:
+                print(f"\n💡 Suggestion: {suggestion}")
+
+            print("\n➤ Your answer (or press Enter to skip): ")
+
+            try:
+                # Get user input
+                answer = input().strip()
+
+                if answer:
+                    # Record conversation
+                    self.conversation_history.append({
+                        "role": "assistant",
+                        "content": gap.get('description'),
+                        "gap_id": gap.get("id"),
+                        "priority": gap.get("priority")
+                    })
+
+                    self.conversation_history.append({
+                        "role": "user",
+                        "content": answer,
+                        "gap_id": gap.get("id")
+                    })
+
+                    # Extract and integrate information
+                    extracted = await self._extract_structured_info(answer, gap.get("id"))
+                    updated_cv = await self._update_cv_data(updated_cv, extracted)
+
+                    print("✅ Information recorded!")
+                else:
+                    print("⏭️  Skipped")
+
+            except (EOFError, KeyboardInterrupt):
+                print("\n\n⚠️  Input interrupted. Using suggested responses for remaining questions.")
+                break
+
+        print("\n" + "=" * 70)
+        print("✅ Information collection complete!")
+        print("=" * 70 + "\n")
+
+        return updated_cv
+
+    async def _non_interactive_collection(
+        self,
+        gaps: List[Dict[str, Any]],
+        cv_data: Dict[str, Any]
+    ) -> Dict[str, Any]:
+        """
+        Non-interactive mode: Use LLM to infer/suggest responses
+
+        Args:
+            gaps: Priority gaps to address
+            cv_data: Current CV data
+
+        Returns:
+            Updated CV data
+        """
+        updated_cv = cv_data.copy()
+
+        logger.info(f"[{self.name}] Non-interactive mode: Using LLM to infer responses")
+
+        for gap in gaps:
+            # Generate suggested response
+            suggestion = await self._suggest_response(gap, cv_data)
+
+            # Record conversation
+            self.conversation_history.append({
+                "role": "assistant",
+                "content": f"Question: {gap.get('description')}",
+                "gap_id": gap.get("id"),
+                "priority": gap.get("priority")
+            })
+
+            self.conversation_history.append({
+                "role": "system",
+                "content": f"Auto-response (inferred): {suggestion}",
+                "gap_id": gap.get("id")
+            })
+
+            # Extract and integrate if LLM suggested something useful
+            if suggestion and not suggestion.startswith("No direct experience"):
+                extracted = await self._extract_structured_info(suggestion, gap.get("id"))
+                updated_cv = await self._update_cv_data(updated_cv, extracted)
+
+        logger.info(f"[{self.name}] Processed {len(gaps)} gaps in non-interactive mode")
+
+        return updated_cv
 
     async def ask_question(
         self,
