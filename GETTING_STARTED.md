@@ -168,9 +168,10 @@ All agents communicate this way - no direct method calls!
 4. Experiment with different LLM providers
 
 ### For Kaggle Submission:
-1. See `notebooks/kaggle_submission.ipynb` for deployment guide
+1. Upload source code as Kaggle dataset
 2. Configure `.env.kaggle` for Gemini Flash (FREE)
-3. Deploy via Kaggle platform
+3. Run via command line: `python test_pipeline.py --cv your_cv.pdf --job job_ad.txt`
+4. **Note**: `notebooks/kaggle_submission.ipynb` is WIP and not required for submission
 
 ## Troubleshooting
 

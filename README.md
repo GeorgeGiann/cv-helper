@@ -33,6 +33,27 @@ cp .env.local .env
 python test_pipeline.py
 ```
 
+### Kaggle Deployment
+
+The system can be deployed on Kaggle for the seminar submission:
+
+**Deployment Options:**
+1. **Command-line** (Recommended): Upload source code, run `test_pipeline.py`
+2. **Kaggle Notebook**: `notebooks/kaggle_submission.ipynb` ⚠️ **WIP - Not required for submission**
+
+**Quick Deploy:**
+```bash
+# Create source package
+tar -czf cv-helper-source.tar.gz src/ data/ requirements.txt
+
+# Upload to Kaggle as dataset → Create notebook → Run pipeline
+```
+
+**Key Configuration for Kaggle:**
+- Set `USER_INTERACTION_MODE=non-interactive` in `.env.kaggle`
+- Use Gemini Flash (FREE) or other LLM provider
+- See [.env.kaggle](.env.kaggle) for configuration template
+
 ### What Gets Generated
 
 The pipeline produces:
@@ -83,6 +104,7 @@ If no match is found, defaults to "professional" template.
 - [Agent Architecture](documentation/cv_enhancement_architecture.md) - System architecture and agent design
 - [JSON Resume Schema](documentation/json_resume_schema.md) - CV data format specification
 - [Troubleshooting Guide](documentation/troubleshooting_guide.md) - Common issues and solutions
+- [Kaggle Notebook](notebooks/kaggle_submission.ipynb) - ⚠️ WIP (not required for submission)
 
 ## 🛠️ Technical Stack
 
