@@ -306,10 +306,9 @@ diff stage1_ingestion.json stage2_tailored.json
 ## Getting Help
 
 1. Check logs in `./data/outputs/` directory
-2. Review [IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)
-3. Examine [cv_enhancement_architecture.md](.context/cv_enhancement_architecture.md)
-4. Test with sample data: `python test_pipeline.py`
-5. Enable debug logging for detailed traces
+2. Examine [cv_enhancement_architecture.md](documentation/cv_enhancement_architecture.md)
+3. Test with sample data: `python test_pipeline.py`
+4. Enable debug logging for detailed traces
 
 ## Useful Commands
 

@@ -80,9 +80,9 @@ If no match is found, defaults to "professional" template.
 ## 📚 Documentation
 
 - [Getting Started](GETTING_STARTED.md) - Detailed setup guide
-- [Agent Architecture](.context/cv_enhancement_architecture.md) - System architecture and agent design
-- [JSON Resume Schema](.context/json_resume_schema.md) - CV data format specification
-- [Troubleshooting Guide](.context/troubleshooting_guide.md) - Common issues and solutions
+- [Agent Architecture](documentation/cv_enhancement_architecture.md) - System architecture and agent design
+- [JSON Resume Schema](documentation/json_resume_schema.md) - CV data format specification
+- [Troubleshooting Guide](documentation/troubleshooting_guide.md) - Common issues and solutions
 
 ## 🛠️ Technical Stack
 
@@ -155,7 +155,7 @@ cv-helper/
 │   └── tools/               # MCP tools
 ├── data/
 │   └── outputs/             # Generated .docx and .json files
-├── .context/                # Documentation
+├── documentation/                # Documentation
 ├── test_pipeline.py         # Demo script
 └── requirements.txt         # Dependencies
 ```

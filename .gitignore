@@ -42,10 +42,6 @@ venv.bak/
 # Claude Code
 .claude/
 
-# Context Documentation (keep these in repo)
-# .context/
-!.context/*.md
-
 # Jupyter Notebooks
 .ipynb_checkpoints/
 *.ipynb_checkpoints
