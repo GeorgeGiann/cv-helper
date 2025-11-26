@@ -42,6 +42,9 @@ venv.bak/
 # Claude Code
 .claude/
 
+# Notebooks (removed from project)
+notebooks/
+
 # Jupyter Notebooks
 .ipynb_checkpoints/
 *.ipynb_checkpoints
@@ -60,7 +63,6 @@ coverage.xml
 .env
 # Keep these env files in repo
 !.env.local
-!.env.kaggle
 !.env.example
 
 # Google Cloud

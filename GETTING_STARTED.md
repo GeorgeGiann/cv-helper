@@ -167,11 +167,6 @@ All agents communicate this way - no direct method calls!
 3. Try different job descriptions
 4. Experiment with different LLM providers
 
-### For Kaggle Submission:
-1. Upload source code as Kaggle dataset
-2. Configure `.env.kaggle` for Gemini Flash (FREE)
-3. Run via command line: `python test_pipeline.py --cv your_cv.pdf --job job_ad.txt`
-4. **Note**: `notebooks/kaggle_submission.ipynb` is WIP and not required for submission
 
 ## Troubleshooting
 
@@ -199,8 +194,10 @@ ollama serve
 
 ## Cost Information
 
-- **Local Development**: $0 (use free Ollama models)
-- **Kaggle Deployment**: $0 (free Gemini Flash + GCP free tier)
+- **Ollama**: $0 (completely free, runs locally)
+- **OpenAI**: Pay per use (GPT-4, GPT-3.5)
+- **Anthropic**: Pay per use (Claude models)
+- **Gemini**: Free tier available
 
 ## Support
 
