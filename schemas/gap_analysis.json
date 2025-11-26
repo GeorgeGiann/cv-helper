@@ -1,0 +1,245 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cv-enhancer.com/schemas/gap-analysis.json",
+  "title": "Gap Analysis Schema",
+  "description": "Results of comparing CV against job requirements",
+  "type": "object",
+  "required": ["sessionId", "hasGaps", "gaps", "matches"],
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "description": "Session identifier"
+    },
+    "userId": {
+      "type": "string",
+      "description": "User identifier"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When analysis was performed"
+    },
+    "hasGaps": {
+      "type": "boolean",
+      "description": "Whether any gaps were identified"
+    },
+    "overallMatch": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Overall match percentage"
+    },
+    "gaps": {
+      "type": "array",
+      "description": "Identified gaps in CV",
+      "items": {
+        "type": "object",
+        "required": ["category", "priority", "description"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique gap identifier"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["skill", "experience", "education", "certification", "project", "language", "other"],
+            "description": "Type of gap"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"],
+            "description": "Importance of addressing this gap"
+          },
+          "description": {
+            "type": "string",
+            "description": "What is missing"
+          },
+          "requiredBy": {
+            "type": "string",
+            "description": "Job requirement that identified this gap"
+          },
+          "suggestedQuestions": {
+            "type": "array",
+            "description": "Questions to ask user to fill this gap",
+            "items": {"type": "string"}
+          },
+          "alternatives": {
+            "type": "array",
+            "description": "Alternative ways to satisfy this requirement",
+            "items": {"type": "string"}
+          },
+          "addressable": {
+            "type": "boolean",
+            "description": "Whether this gap can be addressed with existing experience"
+          }
+        }
+      }
+    },
+    "matches": {
+      "type": "array",
+      "description": "Requirements that the CV satisfies",
+      "items": {
+        "type": "object",
+        "required": ["category", "requirement", "evidence"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["skill", "experience", "education", "certification", "project", "language"]
+          },
+          "requirement": {
+            "type": "string",
+            "description": "Job requirement"
+          },
+          "evidence": {
+            "type": "array",
+            "description": "CV sections that demonstrate this requirement",
+            "items": {
+              "type": "object",
+              "properties": {
+                "section": {
+                  "type": "string",
+                  "enum": ["work", "education", "skills", "projects", "certifications"]
+                },
+                "reference": {
+                  "type": "string",
+                  "description": "Reference to specific CV entry"
+                },
+                "matchStrength": {
+                  "type": "string",
+                  "enum": ["strong", "moderate", "weak"]
+                }
+              }
+            }
+          },
+          "matchScore": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "How well this requirement is satisfied (0-1)"
+          }
+        }
+      }
+    },
+    "recommendations": {
+      "type": "array",
+      "description": "Recommendations for improving CV-job match",
+      "items": {
+        "type": "object",
+        "required": ["type", "description"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["highlight", "reorder", "expand", "add", "rephrase", "remove"]
+          },
+          "description": {
+            "type": "string",
+            "description": "What to do"
+          },
+          "section": {
+            "type": "string",
+            "description": "Which CV section this applies to"
+          },
+          "priority": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "impact": {
+            "type": "string",
+            "description": "Expected impact of this change"
+          }
+        }
+      }
+    },
+    "keywords": {
+      "type": "object",
+      "description": "Keyword analysis for ATS optimization",
+      "properties": {
+        "present": {
+          "type": "array",
+          "description": "Important keywords from job ad found in CV",
+          "items": {"type": "string"}
+        },
+        "missing": {
+          "type": "array",
+          "description": "Important keywords from job ad missing from CV",
+          "items": {"type": "string"}
+        },
+        "frequency": {
+          "type": "object",
+          "description": "Keyword frequency in CV",
+          "additionalProperties": {"type": "number"}
+        }
+      }
+    },
+    "questionnaire": {
+      "type": "object",
+      "description": "Structured questions to ask user",
+      "properties": {
+        "questions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "question", "gapId"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Question identifier"
+              },
+              "question": {
+                "type": "string",
+                "description": "Question text"
+              },
+              "gapId": {
+                "type": "string",
+                "description": "Reference to gap this question addresses"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["yes_no", "text", "multiple_choice", "date", "number"],
+                "description": "Expected answer type"
+              },
+              "options": {
+                "type": "array",
+                "description": "Options for multiple choice",
+                "items": {"type": "string"}
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["critical", "high", "medium", "low"]
+              },
+              "answered": {
+                "type": "boolean",
+                "description": "Whether this question has been answered"
+              },
+              "answer": {
+                "type": ["string", "number", "boolean", "null"],
+                "description": "User's answer"
+              }
+            }
+          }
+        },
+        "estimatedTime": {
+          "type": "number",
+          "description": "Estimated time to complete questionnaire (minutes)"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Analysis metadata",
+      "properties": {
+        "version": {"type": "string"},
+        "analysisModel": {"type": "string"},
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "processingTime": {
+          "type": "number",
+          "description": "Analysis processing time in seconds"
+        }
+      }
+    }
+  }
+}

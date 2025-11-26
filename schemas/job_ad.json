@@ -1,0 +1,239 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cv-enhancer.com/schemas/job-ad.json",
+  "title": "Job Advertisement Schema",
+  "description": "Structured representation of job postings",
+  "type": "object",
+  "required": ["title", "description", "requirements"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Job title"
+    },
+    "company": {
+      "type": "object",
+      "description": "Company information",
+      "properties": {
+        "name": {"type": "string"},
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "description": {"type": "string"},
+        "industry": {"type": "string"},
+        "size": {
+          "type": "string",
+          "enum": ["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001+"]
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "city": {"type": "string"},
+            "state": {"type": "string"},
+            "country": {"type": "string"},
+            "remote": {"type": "boolean"}
+          }
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Full job description"
+    },
+    "responsibilities": {
+      "type": "array",
+      "description": "Key responsibilities and duties",
+      "items": {"type": "string"}
+    },
+    "requirements": {
+      "type": "object",
+      "description": "Job requirements categorized by priority",
+      "properties": {
+        "mustHave": {
+          "type": "array",
+          "description": "Required qualifications",
+          "items": {
+            "type": "object",
+            "required": ["category", "description"],
+            "properties": {
+              "category": {
+                "type": "string",
+                "enum": ["skill", "experience", "education", "certification", "language"]
+              },
+              "description": {"type": "string"},
+              "years": {
+                "type": "number",
+                "description": "Years of experience required (if applicable)"
+              },
+              "keywords": {
+                "type": "array",
+                "description": "Specific skills or technologies",
+                "items": {"type": "string"}
+              }
+            }
+          }
+        },
+        "niceToHave": {
+          "type": "array",
+          "description": "Preferred qualifications",
+          "items": {
+            "type": "object",
+            "required": ["category", "description"],
+            "properties": {
+              "category": {
+                "type": "string",
+                "enum": ["skill", "experience", "education", "certification", "language"]
+              },
+              "description": {"type": "string"},
+              "years": {"type": "number"},
+              "keywords": {
+                "type": "array",
+                "items": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "object",
+      "description": "Technical and soft skills categorized",
+      "properties": {
+        "technical": {
+          "type": "array",
+          "description": "Technical skills required",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {"type": "string"},
+              "priority": {
+                "type": "string",
+                "enum": ["required", "preferred"]
+              },
+              "level": {
+                "type": "string",
+                "enum": ["Beginner", "Intermediate", "Advanced", "Expert"]
+              }
+            }
+          }
+        },
+        "soft": {
+          "type": "array",
+          "description": "Soft skills required",
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "properties": {
+              "name": {"type": "string"},
+              "priority": {
+                "type": "string",
+                "enum": ["required", "preferred"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "experience": {
+      "type": "object",
+      "description": "Experience requirements",
+      "properties": {
+        "yearsMin": {
+          "type": "number",
+          "description": "Minimum years of experience"
+        },
+        "yearsMax": {
+          "type": "number",
+          "description": "Maximum years of experience"
+        },
+        "level": {
+          "type": "string",
+          "enum": ["Entry", "Junior", "Mid", "Senior", "Lead", "Principal", "Executive"]
+        }
+      }
+    },
+    "education": {
+      "type": "object",
+      "description": "Educational requirements",
+      "properties": {
+        "degreeLevel": {
+          "type": "string",
+          "enum": ["High School", "Associate", "Bachelor", "Master", "PhD", "None"]
+        },
+        "fields": {
+          "type": "array",
+          "description": "Preferred fields of study",
+          "items": {"type": "string"}
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether degree is required or preferred"
+        }
+      }
+    },
+    "compensation": {
+      "type": "object",
+      "description": "Salary and benefits information",
+      "properties": {
+        "salaryMin": {"type": "number"},
+        "salaryMax": {"type": "number"},
+        "currency": {"type": "string"},
+        "period": {
+          "type": "string",
+          "enum": ["hourly", "annual", "monthly"]
+        },
+        "benefits": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "employmentType": {
+      "type": "string",
+      "enum": ["Full-time", "Part-time", "Contract", "Temporary", "Internship"],
+      "description": "Type of employment"
+    },
+    "workMode": {
+      "type": "string",
+      "enum": ["On-site", "Remote", "Hybrid"],
+      "description": "Work location arrangement"
+    },
+    "applicationDeadline": {
+      "type": "string",
+      "format": "date",
+      "description": "Application deadline date"
+    },
+    "postedDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Date job was posted"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL to original job posting"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the job ad",
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Where the job ad was sourced from"
+        },
+        "extractedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the data was extracted"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Extraction confidence score"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+# Core Dependencies
+# NOTE: Requires Python 3.11 or higher (check with: python --version)
+
+# LLM Providers
+openai>=1.12.0              # OpenAI GPT models (used in src/llm/openai.py)
+anthropic>=0.18.0           # Anthropic Claude models (used in src/llm/anthropic.py)
+tiktoken>=0.6.0             # Token counting for OpenAI (used in src/llm/openai.py)
+
+# Vector Database & Embeddings
+faiss-cpu>=1.7.4            # Local vector database (used in src/tools/vector_db/faiss_backend.py)
+sentence-transformers>=2.2.2 # Text embeddings (used in src/tools/vector_db/faiss_backend.py)
+numpy>=1.20.0               # Required by FAISS and sentence-transformers
+
+# Google Cloud Platform (for Kaggle/Cloud deployment)
+google-cloud-storage>=2.14.0      # GCS storage backend (used in src/storage/gcs.py)
+google-cloud-aiplatform>=1.38.0   # Gemini/Vertex AI (used in src/llm/gemini.py)
+
+# PDF Processing
+pdfplumber>=0.10.3          # PDF text extraction (used in src/tools/pdf_parser/main.py)
+
+# Document Generation (for CV output)
+python-docx>=1.1.0          # Word document generation (used in src/agents/cv_generator.py)
+
+# Web Scraping (for job ads)
+beautifulsoup4>=4.12.2      # HTML parsing (used in src/tools/web_fetcher/main.py)
+requests>=2.31.0            # HTTP requests (used in src/tools/web_fetcher/main.py)
+
+# Async/Concurrency
+aiohttp>=3.9.1              # Async HTTP for Ollama (used in src/llm/ollama.py)
+
+# Utilities
+python-dotenv>=1.0.0        # Environment config loading (used in src/config.py)
+structlog>=23.2.0           # Structured logging
+
+# Testing (optional - for development)
+pytest>=7.4.3
+pytest-asyncio>=0.21.1
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+# Development Tools (optional - for code quality)
+black>=23.12.0              # Code formatter
+flake8>=6.1.0               # Linter
+mypy>=1.7.1                 # Type checker
+isort>=5.13.0               # Import sorter
+
+# Type Hints (for mypy)
+types-requests>=2.31.0
+types-beautifulsoup4>=4.12.0
+
+# Jupyter Notebooks (optional - for experimentation)
+jupyter>=1.0.0
+ipykernel>=6.27.1
+notebook>=7.0.6

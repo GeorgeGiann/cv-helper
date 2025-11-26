@@ -1,0 +1,92 @@
+name: pdf_parser
+version: 1.0.0
+description: Parse PDF CVs and extract structured data with section detection
+
+inputs:
+  file_path:
+    type: string
+    required: true
+    description: Path to PDF file (local path or GCS URI)
+
+  extract_images:
+    type: boolean
+    required: false
+    default: false
+    description: Whether to extract images from PDF
+
+  ocr_enabled:
+    type: boolean
+    required: false
+    default: false
+    description: Enable OCR for image-based PDFs
+
+  language:
+    type: string
+    required: false
+    default: "eng"
+    description: OCR language (e.g., 'eng', 'spa', 'fra')
+
+outputs:
+  success:
+    type: boolean
+    description: Whether parsing succeeded
+
+  parsed_data:
+    type: object
+    description: Structured CV data with detected sections
+    schema:
+      type: object
+      properties:
+        text:
+          type: string
+          description: Full extracted text
+        sections:
+          type: object
+          description: Detected CV sections
+          properties:
+            contact:
+              type: object
+              description: Contact information
+            education:
+              type: array
+              description: Education entries
+            experience:
+              type: array
+              description: Work experience entries
+            skills:
+              type: array
+              description: Skills list
+            projects:
+              type: array
+              description: Projects
+            certifications:
+              type: array
+              description: Certifications
+        metadata:
+          type: object
+          properties:
+            num_pages:
+              type: integer
+            file_size_bytes:
+              type: integer
+            extraction_method:
+              type: string
+
+  error:
+    type: string
+    required: false
+    description: Error message if parsing failed
+
+capabilities:
+  - Text extraction with layout preservation
+  - Section detection (education, experience, skills, etc.)
+  - Contact information extraction
+  - Multiple PDF format support
+  - OCR for scanned/image-based PDFs
+  - Metadata extraction
+
+dependencies:
+  - pdfplumber>=0.10.3
+  - pytesseract>=0.3.10
+  - unstructured[pdf]>=0.11.0
+  - google-cloud-storage>=2.14.0

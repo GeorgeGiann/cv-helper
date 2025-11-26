@@ -1,0 +1,333 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cv-enhancer.com/schemas/cv-profile.json",
+  "title": "CV Profile Schema",
+  "description": "Canonical structure for CV data following JSON Resume standard with extensions",
+  "type": "object",
+  "required": ["basics", "work", "education", "skills"],
+  "properties": {
+    "basics": {
+      "type": "object",
+      "description": "Basic personal information",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Full name"
+        },
+        "label": {
+          "type": "string",
+          "description": "Job title or professional label"
+        },
+        "image": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to profile picture"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Phone number"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Personal website or portfolio URL"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Professional summary or objective"
+        },
+        "location": {
+          "type": "object",
+          "properties": {
+            "address": {"type": "string"},
+            "postalCode": {"type": "string"},
+            "city": {"type": "string"},
+            "countryCode": {"type": "string"},
+            "region": {"type": "string"}
+          }
+        },
+        "profiles": {
+          "type": "array",
+          "description": "Social media and professional profiles",
+          "items": {
+            "type": "object",
+            "required": ["network", "url"],
+            "properties": {
+              "network": {
+                "type": "string",
+                "description": "Platform name (e.g., LinkedIn, GitHub)"
+              },
+              "username": {"type": "string"},
+              "url": {
+                "type": "string",
+                "format": "uri"
+              }
+            }
+          }
+        }
+      }
+    },
+    "work": {
+      "type": "array",
+      "description": "Work experience entries",
+      "items": {
+        "type": "object",
+        "required": ["name", "position"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Company name"
+          },
+          "position": {
+            "type": "string",
+            "description": "Job title"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Company website"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "description": "Start date (YYYY-MM-DD or YYYY-MM)"
+          },
+          "endDate": {
+            "type": ["string", "null"],
+            "format": "date",
+            "description": "End date or null for current position"
+          },
+          "summary": {
+            "type": "string",
+            "description": "Brief description of role"
+          },
+          "highlights": {
+            "type": "array",
+            "description": "Key achievements and responsibilities",
+            "items": {"type": "string"}
+          },
+          "location": {
+            "type": "string",
+            "description": "Job location"
+          },
+          "keywords": {
+            "type": "array",
+            "description": "Relevant technologies and skills",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "education": {
+      "type": "array",
+      "description": "Educational background",
+      "items": {
+        "type": "object",
+        "required": ["institution", "area"],
+        "properties": {
+          "institution": {
+            "type": "string",
+            "description": "School or university name"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "area": {
+            "type": "string",
+            "description": "Field of study"
+          },
+          "studyType": {
+            "type": "string",
+            "description": "Degree type (e.g., Bachelor, Master, PhD)"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "score": {
+            "type": "string",
+            "description": "GPA or grade"
+          },
+          "courses": {
+            "type": "array",
+            "description": "Relevant coursework",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "array",
+      "description": "Technical and professional skills",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Skill category"
+          },
+          "level": {
+            "type": "string",
+            "enum": ["Beginner", "Intermediate", "Advanced", "Expert"],
+            "description": "Proficiency level"
+          },
+          "keywords": {
+            "type": "array",
+            "description": "Specific skills in this category",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "certificates": {
+      "type": "array",
+      "description": "Professional certifications",
+      "items": {
+        "type": "object",
+        "required": ["name", "issuer"],
+        "properties": {
+          "name": {"type": "string"},
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "issuer": {"type": "string"},
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "projects": {
+      "type": "array",
+      "description": "Notable projects",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "description": {"type": "string"},
+          "highlights": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "keywords": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": ["string", "null"],
+            "format": "date"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "roles": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "publications": {
+      "type": "array",
+      "description": "Publications and papers",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "publisher": {"type": "string"},
+          "releaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "summary": {"type": "string"}
+        }
+      }
+    },
+    "languages": {
+      "type": "array",
+      "description": "Language proficiencies",
+      "items": {
+        "type": "object",
+        "required": ["language"],
+        "properties": {
+          "language": {"type": "string"},
+          "fluency": {
+            "type": "string",
+            "enum": ["Native", "Fluent", "Professional", "Intermediate", "Beginner"]
+          }
+        }
+      }
+    },
+    "interests": {
+      "type": "array",
+      "description": "Personal interests",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {"type": "string"},
+          "keywords": {
+            "type": "array",
+            "items": {"type": "string"}
+          }
+        }
+      }
+    },
+    "references": {
+      "type": "array",
+      "description": "Professional references",
+      "items": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {"type": "string"},
+          "reference": {"type": "string"}
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Metadata about the CV",
+      "properties": {
+        "canonical": {
+          "type": "string",
+          "format": "uri",
+          "description": "Canonical URL of this CV"
+        },
+        "version": {
+          "type": "string",
+          "description": "CV version"
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last modification timestamp"
+        }
+      }
+    }
+  }
+}

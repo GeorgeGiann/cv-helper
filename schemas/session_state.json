@@ -1,0 +1,356 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://cv-enhancer.com/schemas/session-state.json",
+  "title": "Session State Schema",
+  "description": "Tracking state for a CV enhancement session",
+  "type": "object",
+  "required": ["sessionId", "userId", "status", "createdAt"],
+  "properties": {
+    "sessionId": {
+      "type": "string",
+      "description": "Unique session identifier"
+    },
+    "userId": {
+      "type": "string",
+      "description": "User identifier"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "initialized",
+        "uploading_cv",
+        "parsing_cv",
+        "analyzing_job",
+        "identifying_gaps",
+        "collecting_info",
+        "generating_cv",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "description": "Current session status"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session creation timestamp"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last update timestamp"
+    },
+    "expiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Session expiration timestamp"
+    },
+    "input": {
+      "type": "object",
+      "description": "Input data for the session",
+      "properties": {
+        "cvFile": {
+          "type": "object",
+          "properties": {
+            "originalName": {"type": "string"},
+            "gcsUri": {
+              "type": "string",
+              "description": "Cloud Storage URI"
+            },
+            "uploadedAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "sizeBytes": {"type": "number"},
+            "mimeType": {"type": "string"}
+          }
+        },
+        "jobAd": {
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "enum": ["text", "url"],
+              "description": "Whether job ad was provided as text or URL"
+            },
+            "content": {
+              "type": "string",
+              "description": "Job ad text or URL"
+            },
+            "providedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+    },
+    "cvData": {
+      "type": "object",
+      "description": "Parsed CV data (references cv_profile.json schema)",
+      "properties": {
+        "parsed": {
+          "type": "boolean",
+          "description": "Whether CV has been successfully parsed"
+        },
+        "data": {
+          "type": "object",
+          "description": "CV data following cv_profile.json schema"
+        },
+        "parsedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "jobData": {
+      "type": "object",
+      "description": "Analyzed job data (references job_ad.json schema)",
+      "properties": {
+        "analyzed": {
+          "type": "boolean",
+          "description": "Whether job ad has been analyzed"
+        },
+        "data": {
+          "type": "object",
+          "description": "Job data following job_ad.json schema"
+        },
+        "analyzedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "gapAnalysis": {
+      "type": "object",
+      "description": "Gap analysis results (references gap_analysis.json schema)",
+      "properties": {
+        "completed": {
+          "type": "boolean",
+          "description": "Whether gap analysis is complete"
+        },
+        "data": {
+          "type": "object",
+          "description": "Gap analysis following gap_analysis.json schema"
+        },
+        "completedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "conversation": {
+      "type": "object",
+      "description": "User interaction conversation history",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "role", "content", "timestamp"],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Message identifier"
+              },
+              "role": {
+                "type": "string",
+                "enum": ["agent", "user", "system"],
+                "description": "Who sent the message"
+              },
+              "content": {
+                "type": "string",
+                "description": "Message content"
+              },
+              "timestamp": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "gapId": {
+                "type": "string",
+                "description": "Gap this message relates to"
+              },
+              "metadata": {
+                "type": "object",
+                "description": "Additional message metadata"
+              }
+            }
+          }
+        },
+        "questionsAsked": {
+          "type": "number",
+          "description": "Number of questions asked"
+        },
+        "questionsAnswered": {
+          "type": "number",
+          "description": "Number of questions answered"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "completedAt": {
+          "type": ["string", "null"],
+          "format": "date-time"
+        }
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "description": "Generated CV outputs",
+      "properties": {
+        "generated": {
+          "type": "boolean",
+          "description": "Whether CVs have been generated"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["format", "gcsUri"],
+            "properties": {
+              "format": {
+                "type": "string",
+                "enum": ["pdf", "docx", "json", "markdown"]
+              },
+              "gcsUri": {
+                "type": "string",
+                "description": "Cloud Storage URI"
+              },
+              "signedUrl": {
+                "type": "string",
+                "format": "uri",
+                "description": "Temporary download URL"
+              },
+              "generatedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "sizeBytes": {"type": "number"}
+            }
+          }
+        },
+        "generatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "description": "Errors encountered during session",
+      "items": {
+        "type": "object",
+        "required": ["timestamp", "stage", "message"],
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "stage": {
+            "type": "string",
+            "description": "Which stage the error occurred in"
+          },
+          "message": {
+            "type": "string",
+            "description": "Error message"
+          },
+          "code": {
+            "type": "string",
+            "description": "Error code"
+          },
+          "recoverable": {
+            "type": "boolean",
+            "description": "Whether error can be recovered from"
+          },
+          "retryCount": {
+            "type": "number",
+            "description": "Number of retry attempts"
+          },
+          "stackTrace": {
+            "type": "string",
+            "description": "Error stack trace"
+          }
+        }
+      }
+    },
+    "agentCalls": {
+      "type": "array",
+      "description": "Agent-to-agent communication log",
+      "items": {
+        "type": "object",
+        "required": ["timestamp", "sender", "recipient", "action"],
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "sender": {
+            "type": "string",
+            "description": "Sending agent name"
+          },
+          "recipient": {
+            "type": "string",
+            "description": "Receiving agent name"
+          },
+          "action": {
+            "type": "string",
+            "description": "Action requested"
+          },
+          "correlationId": {
+            "type": "string",
+            "description": "Request correlation ID"
+          },
+          "durationMs": {
+            "type": "number",
+            "description": "Call duration in milliseconds"
+          },
+          "success": {
+            "type": "boolean",
+            "description": "Whether call succeeded"
+          }
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Session performance metrics",
+      "properties": {
+        "totalDurationMs": {
+          "type": "number",
+          "description": "Total session duration"
+        },
+        "tokensUsed": {
+          "type": "number",
+          "description": "Total LLM tokens consumed"
+        },
+        "apiCalls": {
+          "type": "number",
+          "description": "Total API calls made"
+        },
+        "retries": {
+          "type": "number",
+          "description": "Total retry attempts"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Additional metadata",
+      "properties": {
+        "version": {
+          "type": "string",
+          "description": "Schema version"
+        },
+        "clientInfo": {
+          "type": "object",
+          "properties": {
+            "userAgent": {"type": "string"},
+            "ipAddress": {"type": "string"},
+            "referrer": {"type": "string"}
+          }
+        }
+      }
+    }
+  }
+}

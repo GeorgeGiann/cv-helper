@@ -1,0 +1,70 @@
+name: vector_db
+version: 1.0.0
+description: Store and search CV embeddings for semantic similarity
+
+inputs:
+  operation:
+    type: string
+    required: true
+    enum: [store, search, delete, list]
+    description: Operation to perform
+
+  text:
+    type: string
+    required: false
+    description: Text to embed and store/search (required for store/search)
+
+  document_id:
+    type: string
+    required: false
+    description: Unique document identifier (required for store/delete)
+
+  metadata:
+    type: object
+    required: false
+    description: Metadata to store with embedding
+
+  top_k:
+    type: integer
+    required: false
+    default: 5
+    description: Number of results to return for search
+
+  score_threshold:
+    type: float
+    required: false
+    default: 0.7
+    description: Minimum similarity score (0-1)
+
+outputs:
+  success:
+    type: boolean
+    description: Whether operation succeeded
+
+  results:
+    type: array
+    description: Search results or list of documents
+    items:
+      type: object
+      properties:
+        document_id:
+          type: string
+        score:
+          type: float
+        metadata:
+          type: object
+
+  error:
+    type: string
+    required: false
+    description: Error message if operation failed
+
+capabilities:
+  - Store text embeddings with metadata
+  - Semantic similarity search
+  - Document management (delete, list)
+  - Support for FAISS (local) and Vertex AI (cloud)
+
+dependencies:
+  - faiss-cpu>=1.7.4  # For local vector DB
+  - google-cloud-aiplatform>=1.38.0  # For Vertex AI

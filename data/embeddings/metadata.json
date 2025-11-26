@@ -1,0 +1,195 @@
+{
+  "documents": {
+    "profile_test_user_001_20251125_182052": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "John Doe",
+        "profile_id": "profile_test_user_001_20251125_182052"
+      },
+      "text_preview": "Name: John Doe\nPosition: Senior Software Engineer at Tech Corp\nLed development of microservices architecture serving 1M+ users\nReduced API response time by 50% through optimization\nMentored team of 3 ",
+      "position": 0
+    },
+    "profile_test_user_001_20251125_185809": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "John Doe",
+        "profile_id": "profile_test_user_001_20251125_185809"
+      },
+      "text_preview": "Name: John Doe\nPosition: Senior Software Engineer at Tech Corp\nLed development of microservices architecture serving 1M+ users\nReduced API response time by 50% through optimization\nMentored team of 3 ",
+      "position": 1
+    },
+    "profile_test_user_001_20251125_190811": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "John Doe",
+        "profile_id": "profile_test_user_001_20251125_190811"
+      },
+      "text_preview": "Name: John Doe\nPosition: Senior Software Engineer at Tech Corp\nLed development of microservices architecture serving 1M+ users\nReduced API response time by 50% through optimization\nMentored team of 3 ",
+      "position": 2
+    },
+    "profile_test_user_001_20251125_192545": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_192545"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 3
+    },
+    "profile_test_user_001_20251125_192935": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_192935"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 4
+    },
+    "profile_test_user_001_20251125_193558": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_193558"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 5
+    },
+    "profile_test_user_001_20251125_194732": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_194732"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 6
+    },
+    "profile_test_user_001_20251125_195434": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_195434"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 7
+    },
+    "profile_test_user_001_20251125_195857": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_195857"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 8
+    },
+    "profile_test_user_001_20251125_200003": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_200003"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 9
+    },
+    "profile_test_user_001_20251125_200155": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_200155"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 10
+    },
+    "profile_test_user_001_20251125_200359": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_200359"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 11
+    },
+    "profile_test_user_001_20251125_200833": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_200833"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 12
+    },
+    "profile_test_user_001_20251125_201425": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_201425"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 13
+    },
+    "profile_test_user_001_20251125_202301": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_202301"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 14
+    },
+    "profile_test_user_001_20251125_203518": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_203518"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 15
+    },
+    "profile_test_user_001_20251125_204824": {
+      "metadata": {
+        "user_id": "test_user_001",
+        "name": "Georgios Giannitselis",
+        "profile_id": "profile_test_user_001_20251125_204824"
+      },
+      "text_preview": "Name: Georgios Giannitselis\nPosition: Senior Software Engineer at SWORD Group\nAssigned to work for European Patent Office for the Harmonization of Data exchange with WIPO and national patent offices p",
+      "position": 16
+    }
+  },
+  "id_to_position": {
+    "profile_test_user_001_20251125_182052": 0,
+    "profile_test_user_001_20251125_185809": 1,
+    "profile_test_user_001_20251125_190811": 2,
+    "profile_test_user_001_20251125_192545": 3,
+    "profile_test_user_001_20251125_192935": 4,
+    "profile_test_user_001_20251125_193558": 5,
+    "profile_test_user_001_20251125_194732": 6,
+    "profile_test_user_001_20251125_195434": 7,
+    "profile_test_user_001_20251125_195857": 8,
+    "profile_test_user_001_20251125_200003": 9,
+    "profile_test_user_001_20251125_200155": 10,
+    "profile_test_user_001_20251125_200359": 11,
+    "profile_test_user_001_20251125_200833": 12,
+    "profile_test_user_001_20251125_201425": 13,
+    "profile_test_user_001_20251125_202301": 14,
+    "profile_test_user_001_20251125_203518": 15,
+    "profile_test_user_001_20251125_204824": 16
+  },
+  "position_to_id": {
+    "0": "profile_test_user_001_20251125_182052",
+    "1": "profile_test_user_001_20251125_185809",
+    "2": "profile_test_user_001_20251125_190811",
+    "3": "profile_test_user_001_20251125_192545",
+    "4": "profile_test_user_001_20251125_192935",
+    "5": "profile_test_user_001_20251125_193558",
+    "6": "profile_test_user_001_20251125_194732",
+    "7": "profile_test_user_001_20251125_195434",
+    "8": "profile_test_user_001_20251125_195857",
+    "9": "profile_test_user_001_20251125_200003",
+    "10": "profile_test_user_001_20251125_200155",
+    "11": "profile_test_user_001_20251125_200359",
+    "12": "profile_test_user_001_20251125_200833",
+    "13": "profile_test_user_001_20251125_201425",
+    "14": "profile_test_user_001_20251125_202301",
+    "15": "profile_test_user_001_20251125_203518",
+    "16": "profile_test_user_001_20251125_204824"
+  }
+}

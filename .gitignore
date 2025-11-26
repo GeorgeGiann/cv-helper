@@ -1,0 +1,141 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Claude Code
+.claude/
+
+# Context Documentation (keep these in repo)
+# .context/
+!.context/*.md
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+coverage.xml
+*.cover
+.cache
+
+# Environment Variables
+.env
+# Keep these env files in repo
+!.env.local
+!.env.kaggle
+!.env.example
+
+# Google Cloud
+.gcloud/
+gcloud-config/
+service-account-key.json
+*-credentials.json
+*-key.json
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Output Files
+outputs/
+*.pdf
+*.docx
+*.resume.json
+
+# Test Fixtures (keep structure, ignore actual files)
+tests/fixtures/*.pdf
+tests/fixtures/*.docx
+!tests/fixtures/sample_cv.pdf
+!tests/fixtures/sample_job_ad.txt
+
+# Build artifacts
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# OS specific
+Thumbs.db
+.DS_Store
+
+# Secrets and credentials
+secrets/
+credentials/
+*.pem
+*.key
+*.crt
+
+# Local development
+.local/
+local_*/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Node modules (if using any JS tooling)
+node_modules/
+
+# Package manager locks (optional - uncomment if you want to track)
+# poetry.lock
+# Pipfile.lock
