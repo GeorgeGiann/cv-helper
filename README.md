@@ -5,7 +5,6 @@ A production-grade multi-agent system using **ADK**, **A2A communication**, and 
 
 ## 🎯 Key Features
 
-- ✅ **ADK Framework**: All agents built with Agent Development Kit
 - ✅ **A2A Communication**: Proper Agent-to-Agent messaging
 - ✅ **MCP Tools**: PDF parser, storage, vector DB, web fetcher
 - ✅ **Template-Based CV Generation**: Intelligent template selection based on job position ⭐ NEW
@@ -103,25 +102,6 @@ sentence-transformers       # Embeddings
 openai / anthropic          # LLM providers
 google-cloud-aiplatform     # Gemini
 ```
-
-## 💰 Cost: $0
-
-**Local Development**: Free with Ollama
-**Kaggle Deployment**: Free with Gemini Flash + GCP free tier
-
-## 🎉 Recent Updates (2025-11-25)
-
-### ✅ Template-Based DOCX Generation
-- Intelligent template selection based on job position
-- Professional Word-compatible output
-- 11 template categories for different industries
-- Removed Markdown and PDF formats - focus on quality over quantity
-
-### ✅ Streamlined Output
-- Primary: `.docx` (professional, editable)
-- Reference: `.json` (structured data)
-- Clean, simple architecture
-
 ## 🧪 Testing
 
 ```bash
