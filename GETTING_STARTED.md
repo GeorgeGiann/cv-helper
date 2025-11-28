@@ -118,7 +118,7 @@ CV-Enhancer Multi-Agent System - Pipeline Test
 ## Project Structure
 
 ```
-cv-helper/
+cv-enhancer/
 ├── src/
 │   ├── agents/           # 6 ADK agents with A2A
 │   │   ├── orchestrator.py      ← Master coordinator
